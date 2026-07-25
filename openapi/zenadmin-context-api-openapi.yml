@@ -1,0 +1,84 @@
+openapi: 3.1.0
+info:
+  title: ZenAdmin External Catalog Context API
+  version: v1
+  description: ZenAdmin External API v1 for IT asset, device, order, employee, catalog and webhook management. This specification was reconstructed faithfully from the published developer documentation at https://docs.zenadmin.ai; ZenAdmin does not publish a machine-readable OpenAPI document. Authentication is via a per-key API key sent in the `x-api-key` header (or as a Bearer token).
+  x-generated-by: API Evangelist enrichment pipeline
+  x-source: https://docs.zenadmin.ai
+  x-provenance:
+    generated: '2026-07-21'
+    method: generated
+    source: https://docs.zenadmin.ai
+  contact:
+    name: ZenAdmin
+    url: https://docs.zenadmin.ai
+servers:
+- url: https://console.zenadmin.ai/api/external
+  description: Production
+security:
+- ApiKeyHeader: []
+- ApiKeyBearer: []
+tags:
+- name: Context
+paths:
+  /me:
+    get:
+      operationId: getApiContext
+      summary: Get API context
+      description: Returns the calling key's company_id, api_version, and supported webhook events.
+      tags:
+      - Context
+      responses:
+        '200':
+          description: API context
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  company_id:
+                    type: string
+                  api_version:
+                    type: string
+                    example: v1
+                  supported_events:
+                    type: array
+                    items:
+                      type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+      required:
+      - success
+      - message
+  responses:
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            message: Invalid or expired API key
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Per-key API key. Shown once at creation. Rate limit 60 req/min (burst 120).
+    ApiKeyBearer:
+      type: http
+      scheme: bearer
+      description: 'The API key may alternatively be sent as: Authorization Bearer <api-key>.'

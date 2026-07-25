@@ -1,0 +1,258 @@
+openapi: 3.1.0
+info:
+  title: ZenAdmin External Catalog Webhooks API
+  version: v1
+  description: ZenAdmin External API v1 for IT asset, device, order, employee, catalog and webhook management. This specification was reconstructed faithfully from the published developer documentation at https://docs.zenadmin.ai; ZenAdmin does not publish a machine-readable OpenAPI document. Authentication is via a per-key API key sent in the `x-api-key` header (or as a Bearer token).
+  x-generated-by: API Evangelist enrichment pipeline
+  x-source: https://docs.zenadmin.ai
+  x-provenance:
+    generated: '2026-07-21'
+    method: generated
+    source: https://docs.zenadmin.ai
+  contact:
+    name: ZenAdmin
+    url: https://docs.zenadmin.ai
+servers:
+- url: https://console.zenadmin.ai/api/external
+  description: Production
+security:
+- ApiKeyHeader: []
+- ApiKeyBearer: []
+tags:
+- name: Webhooks
+paths:
+  /webhooks/subscriptions:
+    post:
+      operationId: createWebhookSubscription
+      summary: Create webhook subscription
+      tags:
+      - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionCreate'
+      responses:
+        '200':
+          description: Subscription created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/WebhookSubscription'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    get:
+      operationId: listWebhookSubscriptions
+      summary: List webhook subscriptions
+      tags:
+      - Webhooks
+      responses:
+        '200':
+          description: Subscriptions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookSubscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhooks/subscriptions/{id}:
+    patch:
+      operationId: updateWebhookSubscription
+      summary: Update webhook subscription
+      tags:
+      - Webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookSubscriptionCreate'
+      responses:
+        '200':
+          description: Subscription updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/WebhookSubscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteWebhookSubscription
+      summary: Delete webhook subscription
+      tags:
+      - Webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Subscription deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /webhooks/deliveries:
+    get:
+      operationId: listWebhookDeliveries
+      summary: List webhook deliveries
+      tags:
+      - Webhooks
+      responses:
+        '200':
+          description: Deliveries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookDelivery'
+                  meta_data:
+                    $ref: '#/components/schemas/MetaData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhooks/deliveries/{id}/redeliver:
+    post:
+      operationId: redeliverWebhookDelivery
+      summary: Redeliver webhook event
+      tags:
+      - Webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Redelivery queued
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+      required:
+      - success
+      - message
+    WebhookDelivery:
+      type: object
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+        status:
+          type: string
+    WebhookSubscriptionCreate:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - rfq.created
+            - order.status_changed
+      required:
+      - url
+      - events
+    WebhookSubscription:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+    MetaData:
+      type: object
+      properties:
+        total_items:
+          type: integer
+        page_no:
+          type: integer
+        items_on_page:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            message: Invalid or expired API key
+    BadRequest:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Per-key API key. Shown once at creation. Rate limit 60 req/min (burst 120).
+    ApiKeyBearer:
+      type: http
+      scheme: bearer
+      description: 'The API key may alternatively be sent as: Authorization Bearer <api-key>.'

@@ -1,0 +1,225 @@
+openapi: 3.1.0
+info:
+  title: ZenAdmin External Catalog Orders API
+  version: v1
+  description: ZenAdmin External API v1 for IT asset, device, order, employee, catalog and webhook management. This specification was reconstructed faithfully from the published developer documentation at https://docs.zenadmin.ai; ZenAdmin does not publish a machine-readable OpenAPI document. Authentication is via a per-key API key sent in the `x-api-key` header (or as a Bearer token).
+  x-generated-by: API Evangelist enrichment pipeline
+  x-source: https://docs.zenadmin.ai
+  x-provenance:
+    generated: '2026-07-21'
+    method: generated
+    source: https://docs.zenadmin.ai
+  contact:
+    name: ZenAdmin
+    url: https://docs.zenadmin.ai
+servers:
+- url: https://console.zenadmin.ai/api/external
+  description: Production
+security:
+- ApiKeyHeader: []
+- ApiKeyBearer: []
+tags:
+- name: Orders
+paths:
+  /orders:
+    post:
+      operationId: createOrder
+      summary: Create order
+      description: 'Creates a hardware order. Idempotent via the `external_request_id` field in the request body: repeating a request with the same value returns the original order instead of creating a duplicate.'
+      tags:
+      - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '200':
+          description: Order created (or existing order returned for a repeated external_request_id)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    get:
+      operationId: listOrders
+      summary: List orders
+      tags:
+      - Orders
+      parameters:
+      - name: status
+        in: query
+        schema:
+          type: string
+      - name: from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: page
+        in: query
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Paginated orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  meta_data:
+                    $ref: '#/components/schemas/MetaData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /orders/{rfq_id}:
+    get:
+      operationId: getOrder
+      summary: Get order
+      tags:
+      - Orders
+      parameters:
+      - name: rfq_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /orders/{rfq_id}/cancel:
+    post:
+      operationId: cancelOrder
+      summary: Cancel order
+      tags:
+      - Orders
+      parameters:
+      - name: rfq_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Order cancelled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+      required:
+      - success
+      - message
+    OrderCreate:
+      type: object
+      properties:
+        external_request_id:
+          type: string
+          description: Idempotency key. Reusing a value returns the original order.
+      required:
+      - external_request_id
+    Order:
+      type: object
+      properties:
+        rfq_id:
+          type: string
+        status:
+          type: string
+        external_request_id:
+          type: string
+    MetaData:
+      type: object
+      properties:
+        total_items:
+          type: integer
+        page_no:
+          type: integer
+        items_on_page:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            message: Invalid or expired API key
+    BadRequest:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Per-key API key. Shown once at creation. Rate limit 60 req/min (burst 120).
+    ApiKeyBearer:
+      type: http
+      scheme: bearer
+      description: 'The API key may alternatively be sent as: Authorization Bearer <api-key>.'
