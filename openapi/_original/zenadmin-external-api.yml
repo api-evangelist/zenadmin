@@ -1,0 +1,492 @@
+openapi: 3.1.0
+info:
+  title: ZenAdmin External API
+  version: v1
+  description: >-
+    ZenAdmin External API v1 for IT asset, device, order, employee, catalog and
+    webhook management. This specification was reconstructed faithfully from the
+    published developer documentation at https://docs.zenadmin.ai; ZenAdmin does
+    not publish a machine-readable OpenAPI document. Authentication is via a
+    per-key API key sent in the `x-api-key` header (or as a Bearer token).
+  x-generated-by: API Evangelist enrichment pipeline
+  x-source: https://docs.zenadmin.ai
+  x-provenance:
+    generated: '2026-07-21'
+    method: generated
+    source: https://docs.zenadmin.ai
+  contact:
+    name: ZenAdmin
+    url: https://docs.zenadmin.ai
+servers:
+- url: https://console.zenadmin.ai/api/external
+  description: Production
+security:
+- ApiKeyHeader: []
+- ApiKeyBearer: []
+tags:
+- name: Context
+- name: Devices
+- name: Orders
+- name: Catalog
+- name: Employees
+- name: Webhooks
+paths:
+  /me:
+    get:
+      operationId: getApiContext
+      summary: Get API context
+      description: Returns the calling key's company_id, api_version, and supported webhook events.
+      tags: [Context]
+      responses:
+        '200':
+          description: API context
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  company_id: { type: string }
+                  api_version: { type: string, example: v1 }
+                  supported_events:
+                    type: array
+                    items: { type: string }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /devices:
+    get:
+      operationId: listDevices
+      summary: List devices
+      tags: [Devices]
+      parameters:
+      - { name: page, in: query, schema: { type: integer, default: 0 } }
+      - { name: limit, in: query, schema: { type: integer, default: 25 } }
+      responses:
+        '200':
+          description: Paginated devices
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Device' }
+                  meta_data: { $ref: '#/components/schemas/MetaData' }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /devices/{id}:
+    get:
+      operationId: getDevice
+      summary: Get device details
+      tags: [Devices]
+      parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Device
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/Device' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /orders:
+    post:
+      operationId: createOrder
+      summary: Create order
+      description: >-
+        Creates a hardware order. Idempotent via the `external_request_id` field
+        in the request body: repeating a request with the same value returns the
+        original order instead of creating a duplicate.
+      tags: [Orders]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OrderCreate' }
+      responses:
+        '200':
+          description: Order created (or existing order returned for a repeated external_request_id)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/Order' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    get:
+      operationId: listOrders
+      summary: List orders
+      tags: [Orders]
+      parameters:
+      - { name: status, in: query, schema: { type: string } }
+      - { name: from, in: query, schema: { type: string, format: date } }
+      - { name: to, in: query, schema: { type: string, format: date } }
+      - { name: page, in: query, schema: { type: integer } }
+      - { name: limit, in: query, schema: { type: integer } }
+      responses:
+        '200':
+          description: Paginated orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Order' }
+                  meta_data: { $ref: '#/components/schemas/MetaData' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /orders/{rfq_id}:
+    get:
+      operationId: getOrder
+      summary: Get order
+      tags: [Orders]
+      parameters:
+      - { name: rfq_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/Order' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /orders/{rfq_id}/cancel:
+    post:
+      operationId: cancelOrder
+      summary: Cancel order
+      tags: [Orders]
+      parameters:
+      - { name: rfq_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Order cancelled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/Order' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /catalog/devices:
+    get:
+      operationId: listCatalogDevices
+      summary: List catalog devices
+      tags: [Catalog]
+      parameters:
+      - { name: country_id, in: query, schema: { type: string } }
+      - { name: search, in: query, schema: { type: string } }
+      - { name: page, in: query, schema: { type: integer } }
+      - { name: limit, in: query, schema: { type: integer } }
+      responses:
+        '200':
+          description: Paginated catalog devices
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/CatalogDevice' }
+                  meta_data: { $ref: '#/components/schemas/MetaData' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /catalog/devices/{product_configuration_id}:
+    get:
+      operationId: getCatalogDevice
+      summary: Get catalog device details
+      tags: [Catalog]
+      parameters:
+      - { name: product_configuration_id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Catalog device
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/CatalogDevice' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /catalog/countries:
+    get:
+      operationId: listCatalogCountries
+      summary: List countries
+      tags: [Catalog]
+      responses:
+        '200':
+          description: Countries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Country' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /employees:
+    get:
+      operationId: listEmployees
+      summary: List employees
+      tags: [Employees]
+      parameters:
+      - { name: search, in: query, schema: { type: string } }
+      - { name: status, in: query, schema: { type: string } }
+      - { name: department_id, in: query, schema: { type: string } }
+      - { name: page, in: query, schema: { type: integer } }
+      - { name: limit, in: query, schema: { type: integer } }
+      responses:
+        '200':
+          description: Paginated employees
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Employee' }
+                  meta_data: { $ref: '#/components/schemas/MetaData' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /employees/{id}:
+    get:
+      operationId: getEmployee
+      summary: Get employee details
+      tags: [Employees]
+      parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Employee
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/Employee' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /webhooks/subscriptions:
+    post:
+      operationId: createWebhookSubscription
+      summary: Create webhook subscription
+      tags: [Webhooks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/WebhookSubscriptionCreate' }
+      responses:
+        '200':
+          description: Subscription created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/WebhookSubscription' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    get:
+      operationId: listWebhookSubscriptions
+      summary: List webhook subscriptions
+      tags: [Webhooks]
+      responses:
+        '200':
+          description: Subscriptions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/WebhookSubscription' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /webhooks/subscriptions/{id}:
+    patch:
+      operationId: updateWebhookSubscription
+      summary: Update webhook subscription
+      tags: [Webhooks]
+      parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/WebhookSubscriptionCreate' }
+      responses:
+        '200':
+          description: Subscription updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data: { $ref: '#/components/schemas/WebhookSubscription' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      operationId: deleteWebhookSubscription
+      summary: Delete webhook subscription
+      tags: [Webhooks]
+      parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Subscription deleted
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /webhooks/deliveries:
+    get:
+      operationId: listWebhookDeliveries
+      summary: List webhook deliveries
+      tags: [Webhooks]
+      responses:
+        '200':
+          description: Deliveries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/WebhookDelivery' }
+                  meta_data: { $ref: '#/components/schemas/MetaData' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /webhooks/deliveries/{id}/redeliver:
+    post:
+      operationId: redeliverWebhookDelivery
+      summary: Redeliver webhook event
+      tags: [Webhooks]
+      parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Redelivery queued
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Per-key API key. Shown once at creation. Rate limit 60 req/min (burst 120).
+    ApiKeyBearer:
+      type: http
+      scheme: bearer
+      description: 'The API key may alternatively be sent as: Authorization Bearer <api-key>.'
+  responses:
+    BadRequest:
+      description: Validation error
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { success: false, message: Invalid or expired API key }
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+  schemas:
+    Error:
+      type: object
+      properties:
+        success: { type: boolean, example: false }
+        message: { type: string }
+      required: [success, message]
+    MetaData:
+      type: object
+      properties:
+        total_items: { type: integer }
+        page_no: { type: integer }
+        items_on_page: { type: integer }
+    Device:
+      type: object
+      properties:
+        id: { type: string }
+    CatalogDevice:
+      type: object
+      properties:
+        product_configuration_id: { type: string }
+    Country:
+      type: object
+      properties:
+        country_id: { type: string }
+        name: { type: string }
+    Employee:
+      type: object
+      properties:
+        id: { type: string }
+        department_id: { type: string }
+        status: { type: string }
+    Order:
+      type: object
+      properties:
+        rfq_id: { type: string }
+        status: { type: string }
+        external_request_id: { type: string }
+    OrderCreate:
+      type: object
+      properties:
+        external_request_id:
+          type: string
+          description: Idempotency key. Reusing a value returns the original order.
+      required: [external_request_id]
+    WebhookSubscription:
+      type: object
+      properties:
+        id: { type: string }
+        url: { type: string, format: uri }
+        events:
+          type: array
+          items: { type: string }
+    WebhookSubscriptionCreate:
+      type: object
+      properties:
+        url: { type: string, format: uri }
+        events:
+          type: array
+          items:
+            type: string
+            enum: [rfq.created, order.status_changed]
+      required: [url, events]
+    WebhookDelivery:
+      type: object
+      properties:
+        id: { type: string }
+        event: { type: string }
+        status: { type: string }

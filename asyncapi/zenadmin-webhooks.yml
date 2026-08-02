@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zenadmin.ai
+type: Webhooks
+api: ZenAdmin External API
+description: >-
+  Outbound webhook (event) surface for the ZenAdmin External API. Consumers create
+  subscriptions to receive HTTP POST callbacks when events occur. ZenAdmin does not
+  publish a machine-readable AsyncAPI document; this catalog is captured from the
+  developer documentation.
+transport: https-post
+management_endpoints:
+  create_subscription: POST /api/external/webhooks/subscriptions
+  list_subscriptions: GET /api/external/webhooks/subscriptions
+  update_subscription: PATCH /api/external/webhooks/subscriptions/:id
+  delete_subscription: DELETE /api/external/webhooks/subscriptions/:id
+  list_deliveries: GET /api/external/webhooks/deliveries
+  redeliver: POST /api/external/webhooks/deliveries/:id/redeliver
+signature:
+  algorithm: HMAC-SHA256
+  headers:
+  - X-Zenadmin-Timestamp
+  - X-Zenadmin-Signature
+  signature_format: 'sha256=<hex>'
+  scheme: HMAC-SHA256(sha256(secret), `${timestamp}.${rawBody}`)
+  verification: >-
+    Recompute the HMAC over `${X-Zenadmin-Timestamp}.${rawBody}` using the
+    subscription secret and compare against the X-Zenadmin-Signature header.
+events:
+- name: rfq.created
+  description: A request-for-quote / order was created.
+- name: order.status_changed
+  description: An order's status changed.
+notes: >-
+  The GET /api/external/me endpoint returns the authoritative supported_events
+  array for the calling key; the two events above are the ones documented. Failed
+  deliveries can be inspected via the deliveries endpoint and replayed via redeliver.

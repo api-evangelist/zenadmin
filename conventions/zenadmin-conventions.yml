@@ -1,0 +1,66 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zenadmin.ai
+api: ZenAdmin External API
+description: >-
+  Cross-cutting runtime semantics for the ZenAdmin External API v1, captured from
+  the published developer documentation.
+authentication:
+  style: api-key
+  header: x-api-key
+  alternative: Authorization Bearer <api-key>
+  notes: API key is shown once when created; store securely. See authentication/zenadmin-authentication.yml.
+idempotency:
+  supported: true
+  mechanism: request-body-field
+  field: external_request_id
+  scope: order creation (POST /orders)
+  behavior: >-
+    Reusing the same external_request_id returns the original order instead of
+    creating a duplicate. Idempotency is a body field, not a header.
+pagination:
+  style: page-number
+  request_params:
+  - page
+  - limit
+  response_envelope: meta_data
+  response_fields:
+  - total_items
+  - page_no
+  - items_on_page
+  defaults:
+    page: 0
+    limit: 25
+filtering:
+  orders: [status, from, to]
+  employees: [search, status, department_id]
+  catalog_devices: [country_id, search]
+response_envelope:
+  success_field: success
+  data_field: data
+  list_meta_field: meta_data
+error_envelope:
+  format: proprietary
+  rfc9457: false
+  fields:
+  - success
+  - message
+  example: '{"success": false, "message": "Invalid or expired API key"}'
+  reference: errors/zenadmin-problem-types.yml
+rate_limiting:
+  per_key_limit: 60 req/min
+  burst: 120
+  response_headers: none documented
+versioning:
+  scheme: path-independent version tag
+  current: v1
+  discovery: GET /me returns api_version
+  reference: lifecycle/zenadmin-lifecycle.yml
+webhooks:
+  supported: true
+  signature: HMAC-SHA256
+  headers:
+  - X-Zenadmin-Timestamp
+  - X-Zenadmin-Signature
+  reference: asyncapi/zenadmin-webhooks.yml
+request_id_tracing: none documented

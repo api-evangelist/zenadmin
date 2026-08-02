@@ -1,0 +1,24 @@
+{
+  "provider": "zenadmin",
+  "sources": [
+    "zenadmin-catalog-api-openapi.yml",
+    "zenadmin-context-api-openapi.yml",
+    "zenadmin-devices-api-openapi.yml",
+    "zenadmin-employees-api-openapi.yml",
+    "zenadmin-orders-api-openapi.yml",
+    "zenadmin-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "zenadmin-catalog-api-openapi.yml",
+    "zenadmin-context-api-openapi.yml",
+    "zenadmin-devices-api-openapi.yml",
+    "zenadmin-employees-api-openapi.yml",
+    "zenadmin-orders-api-openapi.yml",
+    "zenadmin-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

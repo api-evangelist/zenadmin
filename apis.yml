@@ -1,7 +1,15 @@
 aid: zenadmin
 name: ZenAdmin
-description: ZenAdmin is a company surfaced as a portfolio company of 500-global and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  ZenAdmin is an all-in-one IT management platform for global teams, covering the
+  full device and employee lifecycle: IT procurement, device lifecycle management,
+  asset and inventory tracking, mobile device management (MDM), identity and access
+  management, SaaS/app management, IT helpdesk, and 24/7 IT support across 150+
+  countries. ZenAdmin publishes an External API v1 (documented at docs.zenadmin.ai)
+  for programmatic access to devices, hardware orders, a hardware catalog, employees,
+  and outbound webhooks. Authentication is a per-key API key sent via the x-api-key
+  header. This profile was originally surfaced as a 500 Global portfolio company and
+  has been enriched from the live developer documentation.
 url: https://raw.githubusercontent.com/api-evangelist/zenadmin/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,17 +17,232 @@ x-backed-by:
 - 500-global
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+image: https://www.zenadmin.ai/favicon.ico
 tags:
 - Company
-apis: []
+- IT Management
+- Device Management
+- Mobile Device Management
+- IT Asset Management
+- SaaS Management
+- Identity and Access Management
+- IT Procurement
+- Employee Lifecycle
+- Webhooks
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: zenadmin:zenadmin-catalog-api
+  name: ZenAdmin Catalog API
+  description: The Catalog API from ZenAdmin — 3 operation(s) for catalog.
+  humanURL: https://docs.zenadmin.ai
+  baseURL: https://console.zenadmin.ai/api/external
+  tags:
+  - Catalog
+  properties:
+  - type: OpenAPI
+    url: openapi/zenadmin-catalog-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zenadmin.ai
+  - type: Authentication
+    url: authentication/zenadmin-authentication.yml
+  - type: Conventions
+    url: conventions/zenadmin-conventions.yml
+  - type: Idempotency
+    url: conventions/zenadmin-conventions.yml
+  - type: ErrorCatalog
+    url: errors/zenadmin-problem-types.yml
+  - type: Webhooks
+    url: asyncapi/zenadmin-webhooks.yml
+  - type: Conformance
+    url: conformance/zenadmin-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/zenadmin-lifecycle.yml
+  - type: DataModel
+    url: data-model/zenadmin-data-model.yml
+- aid: zenadmin:zenadmin-context-api
+  name: ZenAdmin Context API
+  description: The Context API from ZenAdmin — 1 operation(s) for context.
+  humanURL: https://docs.zenadmin.ai
+  baseURL: https://console.zenadmin.ai/api/external
+  tags:
+  - Context
+  properties:
+  - type: OpenAPI
+    url: openapi/zenadmin-context-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zenadmin.ai
+  - type: Authentication
+    url: authentication/zenadmin-authentication.yml
+  - type: Conventions
+    url: conventions/zenadmin-conventions.yml
+  - type: Idempotency
+    url: conventions/zenadmin-conventions.yml
+  - type: ErrorCatalog
+    url: errors/zenadmin-problem-types.yml
+  - type: Webhooks
+    url: asyncapi/zenadmin-webhooks.yml
+  - type: Conformance
+    url: conformance/zenadmin-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/zenadmin-lifecycle.yml
+  - type: DataModel
+    url: data-model/zenadmin-data-model.yml
+- aid: zenadmin:zenadmin-devices-api
+  name: ZenAdmin Devices API
+  description: The Devices API from ZenAdmin — 2 operation(s) for devices.
+  humanURL: https://docs.zenadmin.ai
+  baseURL: https://console.zenadmin.ai/api/external
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/zenadmin-devices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zenadmin.ai
+  - type: Authentication
+    url: authentication/zenadmin-authentication.yml
+  - type: Conventions
+    url: conventions/zenadmin-conventions.yml
+  - type: Idempotency
+    url: conventions/zenadmin-conventions.yml
+  - type: ErrorCatalog
+    url: errors/zenadmin-problem-types.yml
+  - type: Webhooks
+    url: asyncapi/zenadmin-webhooks.yml
+  - type: Conformance
+    url: conformance/zenadmin-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/zenadmin-lifecycle.yml
+  - type: DataModel
+    url: data-model/zenadmin-data-model.yml
+- aid: zenadmin:zenadmin-employees-api
+  name: ZenAdmin Employees API
+  description: The Employees API from ZenAdmin — 2 operation(s) for employees.
+  humanURL: https://docs.zenadmin.ai
+  baseURL: https://console.zenadmin.ai/api/external
+  tags:
+  - Employees
+  properties:
+  - type: OpenAPI
+    url: openapi/zenadmin-employees-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zenadmin.ai
+  - type: Authentication
+    url: authentication/zenadmin-authentication.yml
+  - type: Conventions
+    url: conventions/zenadmin-conventions.yml
+  - type: Idempotency
+    url: conventions/zenadmin-conventions.yml
+  - type: ErrorCatalog
+    url: errors/zenadmin-problem-types.yml
+  - type: Webhooks
+    url: asyncapi/zenadmin-webhooks.yml
+  - type: Conformance
+    url: conformance/zenadmin-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/zenadmin-lifecycle.yml
+  - type: DataModel
+    url: data-model/zenadmin-data-model.yml
+- aid: zenadmin:zenadmin-orders-api
+  name: ZenAdmin Orders API
+  description: The Orders API from ZenAdmin — 3 operation(s) for orders.
+  humanURL: https://docs.zenadmin.ai
+  baseURL: https://console.zenadmin.ai/api/external
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/zenadmin-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zenadmin.ai
+  - type: Authentication
+    url: authentication/zenadmin-authentication.yml
+  - type: Conventions
+    url: conventions/zenadmin-conventions.yml
+  - type: Idempotency
+    url: conventions/zenadmin-conventions.yml
+  - type: ErrorCatalog
+    url: errors/zenadmin-problem-types.yml
+  - type: Webhooks
+    url: asyncapi/zenadmin-webhooks.yml
+  - type: Conformance
+    url: conformance/zenadmin-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/zenadmin-lifecycle.yml
+  - type: DataModel
+    url: data-model/zenadmin-data-model.yml
+- aid: zenadmin:zenadmin-webhooks-api
+  name: ZenAdmin Webhooks API
+  description: The Webhooks API from ZenAdmin — 4 operation(s) for webhooks.
+  humanURL: https://docs.zenadmin.ai
+  baseURL: https://console.zenadmin.ai/api/external
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/zenadmin-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zenadmin.ai
+  - type: Authentication
+    url: authentication/zenadmin-authentication.yml
+  - type: Conventions
+    url: conventions/zenadmin-conventions.yml
+  - type: Idempotency
+    url: conventions/zenadmin-conventions.yml
+  - type: ErrorCatalog
+    url: errors/zenadmin-problem-types.yml
+  - type: Webhooks
+    url: asyncapi/zenadmin-webhooks.yml
+  - type: Conformance
+    url: conformance/zenadmin-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/zenadmin-lifecycle.yml
+  - type: DataModel
+    url: data-model/zenadmin-data-model.yml
 common:
 - type: Website
   url: https://zenadmin.ai
+- type: DeveloperPortal
+  url: https://docs.zenadmin.ai
+- type: Documentation
+  url: https://docs.zenadmin.ai
+- type: APIReference
+  url: https://docs.zenadmin.ai
+- type: Login
+  url: https://console.zenadmin.ai
+- type: Blog
+  url: https://www.zenadmin.ai/blogs
+- type: TermsOfService
+  url: https://www.zenadmin.ai/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.zenadmin.ai/privacy-policy
+- type: LLMsTxt
+  url: llms/zenadmin-llms.txt
+- type: DomainSecurity
+  url: security/zenadmin-domain-security.yml
+- type: WellKnown
+  url: well-known/zenadmin-well-known.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

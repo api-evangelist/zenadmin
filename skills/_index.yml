@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/zenadmin-external-api.yml
+type: AgentSkill
+api: ZenAdmin External API
+description: >-
+  Packaged Agent Skills for marquee ZenAdmin External API flows. Each skill is
+  grounded in real operationIds from the OpenAPI spec plus the documented
+  conventions (API-key auth, external_request_id idempotency, page/limit
+  pagination, {success,message} errors).
+skills:
+- name: order-hardware
+  file: skills/zenadmin-order-hardware.md
+  description: Browse the device catalog and place an idempotent hardware order.
+  operations: [listCatalogCountries, listCatalogDevices, createOrder, getOrder]
+- name: track-and-cancel-order
+  file: skills/zenadmin-track-and-cancel-order.md
+  description: List, inspect, and cancel hardware orders.
+  operations: [listOrders, getOrder, cancelOrder]
+- name: manage-webhooks
+  file: skills/zenadmin-manage-webhooks.md
+  description: Subscribe to events, inspect deliveries, and replay failures.
+  operations: [createWebhookSubscription, listWebhookSubscriptions, listWebhookDeliveries, redeliverWebhookDelivery]
+- name: inventory-devices-employees
+  file: skills/zenadmin-inventory-devices-employees.md
+  description: Enumerate managed devices and employees for reporting.
+  operations: [listDevices, getDevice, listEmployees, getEmployee, getApiContext]

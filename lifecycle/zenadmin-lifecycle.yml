@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zenadmin.ai
+api: ZenAdmin External API
+versioning:
+  scheme: single named version
+  current: v1
+  discovery: GET /api/external/me returns api_version (v1).
+  path_versioned: false
+deprecation:
+  policy_published: false
+  sunset_header: not documented
+  deprecation_header: not documented
+sla:
+  published: false
+status_page:
+  url: none found
+  notes: No public status page discovered at status.zenadmin.ai or in docs.
+deprecated_operations: []
+notes: >-
+  ZenAdmin exposes a single API version (v1) discoverable via the /me endpoint.
+  No formal deprecation policy, Sunset/Deprecation header usage, SLA, or public
+  status page was found in the developer documentation as of the enrichment date.

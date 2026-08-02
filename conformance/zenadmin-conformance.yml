@@ -1,0 +1,32 @@
+generated: '2026-07-21'
+method: derived
+source: https://docs.zenadmin.ai + openapi/zenadmin-external-api.yml
+api: ZenAdmin External API
+standards:
+- id: oauth2
+  conforms: false
+  evidence: No OAuth2 flows documented; authentication is a static per-key API key.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect / discovery document.
+- id: rfc9457
+  conforms: false
+  evidence: Errors use a proprietary {success, message} envelope, not application/problem+json.
+- id: idempotency
+  conforms: true
+  evidence: Order creation is idempotent via the external_request_id body field.
+- id: pagination
+  conforms: true
+  evidence: List endpoints accept page/limit and return a meta_data object (total_items, page_no, items_on_page).
+- id: webhooks
+  conforms: true
+  evidence: Outbound webhooks with HMAC-SHA256 signatures (X-Zenadmin-Signature) and subscription/delivery management endpoints.
+- id: hmac-signing
+  conforms: true
+  evidence: Webhook payloads signed with HMAC-SHA256 over timestamp.rawBody, verified via X-Zenadmin-Signature and X-Zenadmin-Timestamp.
+- id: json:api
+  conforms: false
+  evidence: Custom response envelope (success/data/meta_data), not JSON:API.
+- id: rate-limiting
+  conforms: true
+  evidence: Documented per-key limit of 60 req/min (burst 120); no standard rate-limit headers documented.

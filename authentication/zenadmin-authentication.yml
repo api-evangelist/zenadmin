@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zenadmin.ai
+docs: https://docs.zenadmin.ai
+notes: >-
+  API-key authentication only; no OAuth2/OIDC. The key is created in the ZenAdmin
+  console and shown once. Send it as the x-api-key header (recommended) or as an
+  Authorization Bearer token. Per-key rate limit 60 req/min (burst 120).
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyHeader
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: Per-key API key. Shown once at creation. Rate limit 60 req/min (burst 120).
+  sources:
+  - openapi/zenadmin-external-api.yml
+- name: ApiKeyBearer
+  type: http
+  scheme: bearer
+  description: 'The API key may alternatively be sent as: Authorization Bearer <api-key>.'
+  sources:
+  - openapi/zenadmin-external-api.yml

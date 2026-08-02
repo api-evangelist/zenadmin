@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.zenadmin.ai
+api: ZenAdmin External API
+format: proprietary
+rfc9457: false
+envelope:
+  fields:
+  - name: success
+    type: boolean
+    description: false on error.
+  - name: message
+    type: string
+    description: Human-readable error description.
+  content_type: application/json
+notes: >-
+  ZenAdmin returns a simple {success, message} JSON envelope on error rather than
+  RFC 9457 application/problem+json. Derived from documented HTTP status codes and
+  the documented 401 example.
+problems:
+- status: 400
+  title: Bad Request
+  description: Validation error on the request (missing/invalid fields).
+  remediation: Correct the request body/parameters and retry.
+- status: 401
+  title: Unauthorized
+  message: Invalid or expired API key
+  description: The x-api-key (or Bearer token) is missing, invalid, or expired.
+  remediation: Provide a valid API key. Keys are shown once at creation; regenerate if lost.
+- status: 404
+  title: Not Found
+  description: The referenced resource (device, order, employee, subscription) does not exist.
+  remediation: Verify the id / rfq_id / product_configuration_id and retry.

@@ -1,0 +1,53 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/zenadmin-external-api.yml
+api: ZenAdmin External API
+description: >-
+  Entity-relationship graph DERIVED from the ZenAdmin External API v1 operations and
+  documented id-reference fields. Field-level object schemas are not published, so
+  relationships are inferred from path parameters and query filters.
+entities:
+- name: Device
+  id_field: id
+  endpoints: [listDevices, getDevice]
+- name: Order
+  id_field: rfq_id
+  endpoints: [createOrder, getOrder, listOrders, cancelOrder]
+  fields: [status, external_request_id]
+- name: CatalogDevice
+  id_field: product_configuration_id
+  endpoints: [listCatalogDevices, getCatalogDevice]
+- name: Country
+  id_field: country_id
+  endpoints: [listCatalogCountries]
+- name: Employee
+  id_field: id
+  fields: [department_id, status]
+  endpoints: [listEmployees, getEmployee]
+- name: WebhookSubscription
+  id_field: id
+  endpoints: [createWebhookSubscription, listWebhookSubscriptions, updateWebhookSubscription, deleteWebhookSubscription]
+- name: WebhookDelivery
+  id_field: id
+  endpoints: [listWebhookDeliveries, redeliverWebhookDelivery]
+relationships:
+- from: CatalogDevice
+  to: Country
+  type: belongs_to
+  via: country_id
+  note: Catalog devices are filtered/scoped by country_id.
+- from: Employee
+  to: Department
+  type: belongs_to
+  via: department_id
+  note: Employees reference a department via department_id (Department not directly exposed as an endpoint).
+- from: WebhookDelivery
+  to: WebhookSubscription
+  type: belongs_to
+  via: subscription
+  note: Each delivery is produced by a subscription (inferred).
+- from: Order
+  to: CatalogDevice
+  type: has_many
+  via: order line items
+  note: Orders are placed against catalog devices (inferred from procurement flow).

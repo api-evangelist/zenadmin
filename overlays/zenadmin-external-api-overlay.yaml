@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: ZenAdmin External API — API Evangelist enrichment overlay
+  version: 1.0.0
+extends: ../openapi/zenadmin-external-api.yml
+x-provenance:
+  generated: '2026-07-21'
+  method: generated
+  source: https://docs.zenadmin.ai
+actions:
+- target: $.info
+  update:
+    x-api-evangelist-enriched: '2026-07-21'
+    x-rate-limit: 60 req/min, burst 120, per key
+    x-idempotency: order creation via external_request_id body field
+- target: $.paths['/orders'].post
+  update:
+    x-idempotent: true
+    x-idempotency-field: external_request_id
+- target: $.paths['/webhooks/subscriptions'].post
+  update:
+    x-webhook-events:
+    - rfq.created
+    - order.status_changed
+    x-webhook-signature: HMAC-SHA256 via X-Zenadmin-Signature / X-Zenadmin-Timestamp
+- target: $.components.schemas.Error
+  update:
+    x-error-format: proprietary
+    x-rfc9457: false

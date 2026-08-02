@@ -1,0 +1,44 @@
+generated: '2026-07-21'
+method: probed
+source: live HTTP probes
+type: WellKnown
+description: >-
+  Probe results for standard .well-known and discovery paths on ZenAdmin hosts.
+  Absence (404) is valid, expected data. The docs host (docs.zenadmin.ai) is behind
+  an edge that returns 403 to non-browser clients; none of those paths returned a
+  usable document.
+probes:
+- host: zenadmin.ai
+  path: /.well-known/security.txt
+  status: 404
+  file: null
+- host: zenadmin.ai
+  path: /.well-known/openid-configuration
+  status: 404
+  file: null
+- host: zenadmin.ai
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  file: null
+- host: zenadmin.ai
+  path: /.well-known/api-catalog
+  status: 404
+  file: null
+- host: zenadmin.ai
+  path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+- host: zenadmin.ai
+  path: /llms.txt
+  status: 200
+  file: ../llms/zenadmin-llms.txt
+  note: Real published llms.txt (marketing/site map). Saved verbatim.
+- host: www.zenadmin.ai
+  path: /.well-known/security.txt
+  status: 404
+  file: null
+- host: docs.zenadmin.ai
+  path: /.well-known/security.txt
+  status: 403
+  file: null
+  note: Edge returns 403 (AccessDenied) to non-browser clients.
