@@ -219,6 +219,12 @@ apis:
   - type: DataModel
     url: data-model/zenadmin-data-model.yml
 common:
+- type: AgentSkill
+  url: skills/zenadmin-inventory-devices-employees.md
+- type: MCPServer
+  url: mcp/zenadmin-mcp.yml
+- type: Overlay
+  url: overlays/zenadmin-external-api-overlay.yaml
 - type: Website
   url: https://zenadmin.ai
 - type: DeveloperPortal
