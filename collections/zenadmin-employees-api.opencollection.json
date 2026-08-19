@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZenAdmin External Catalog Employees API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Employees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List employees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/employees",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "department_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List employees"
+        },
+        {
+          "info": {
+            "name": "Get employee details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/employees/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get employee details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

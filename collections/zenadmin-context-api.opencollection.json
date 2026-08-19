@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZenAdmin External Catalog Context API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Context",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/me"
+          },
+          "docs": "Returns the calling key's company_id, api_version, and supported webhook events."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZenAdmin External Catalog Orders API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/orders",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List orders"
+        },
+        {
+          "info": {
+            "name": "Create order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://console.zenadmin.ai/api/external/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a hardware order. Idempotent via the `external_request_id` field in the request body: repeating a request with the same value returns the original order instead of creating a duplicate."
+        },
+        {
+          "info": {
+            "name": "Get order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/orders/:rfq_id",
+            "params": [
+              {
+                "name": "rfq_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get order"
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://console.zenadmin.ai/api/external/orders/:rfq_id/cancel",
+            "params": [
+              {
+                "name": "rfq_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel order"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

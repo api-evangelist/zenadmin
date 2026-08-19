@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZenAdmin External Catalog Devices API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/devices",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List devices"
+        },
+        {
+          "info": {
+            "name": "Get device details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/devices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get device details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

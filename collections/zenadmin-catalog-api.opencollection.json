@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZenAdmin External Catalog API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List catalog devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/catalog/devices",
+            "params": [
+              {
+                "name": "country_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List catalog devices"
+        },
+        {
+          "info": {
+            "name": "Get catalog device details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/catalog/devices/:product_configuration_id",
+            "params": [
+              {
+                "name": "product_configuration_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get catalog device details"
+        },
+        {
+          "info": {
+            "name": "List countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/catalog/countries"
+          },
+          "docs": "List countries"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

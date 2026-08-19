@@ -4,10 +4,9 @@ source: openapi/zenadmin-external-api.yml
 type: MCPServer
 status: candidate
 api: ZenAdmin External API
-description: >-
-  Candidate Model Context Protocol tool surface DERIVED from the ZenAdmin External
-  API v1 operations. ZenAdmin does not publish an official hosted/remote MCP server
-  as of the enrichment date; this is a proposed mapping, not an official product.
+description: Candidate Model Context Protocol tool surface DERIVED from the ZenAdmin External API v1 operations.
+  ZenAdmin does not publish an official hosted/remote MCP server as of the enrichment date; this is a
+  proposed mapping, not an official product.
 transport: proposed-stdio-or-http
 auth:
   type: api-key
@@ -67,3 +66,9 @@ tools:
 - name: redeliver_webhook_delivery
   operation: redeliverWebhookDelivery
   description: Replay a webhook delivery by id.
+deployment:
+  mode: none
+  verified: derived
+  tools: 18
+  checked: '2026-08-12'
+  source: catalog MCP census

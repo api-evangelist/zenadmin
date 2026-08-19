@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ZenAdmin External Catalog Webhooks API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/webhooks/subscriptions"
+          },
+          "docs": "List webhook subscriptions"
+        },
+        {
+          "info": {
+            "name": "Create webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://console.zenadmin.ai/api/external/webhooks/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create webhook subscription"
+        },
+        {
+          "info": {
+            "name": "Update webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://console.zenadmin.ai/api/external/webhooks/subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update webhook subscription"
+        },
+        {
+          "info": {
+            "name": "Delete webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://console.zenadmin.ai/api/external/webhooks/subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete webhook subscription"
+        },
+        {
+          "info": {
+            "name": "List webhook deliveries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://console.zenadmin.ai/api/external/webhooks/deliveries"
+          },
+          "docs": "List webhook deliveries"
+        },
+        {
+          "info": {
+            "name": "Redeliver webhook event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://console.zenadmin.ai/api/external/webhooks/deliveries/:id/redeliver",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Redeliver webhook event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

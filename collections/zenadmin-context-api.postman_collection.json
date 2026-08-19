@@ -1,0 +1,170 @@
+{
+  "item": [
+    {
+      "id": "3977740a-4141-4ea5-8e16-029fb19b980b",
+      "name": "Context",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3fd6e4af-a1e4-4827-b99e-e378be76382e",
+          "name": "Get API context",
+          "request": {
+            "name": "Get API context",
+            "description": {
+              "content": "Returns the calling key's company_id, api_version, and supported webhook events.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e22e58a8-bff4-4133-9e1f-98facdbc99e1",
+              "name": "API context",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"company_id\": \"string\",\n  \"api_version\": \"v1\",\n  \"supported_events\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0eceb636-37f9-47e6-8679-be29565ce5fe",
+              "name": "Invalid or expired API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"Invalid or expired API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://console.zenadmin.ai/api/external",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "55aa9b88-cff1-49e3-8d83-16d097dc99f3",
+    "name": "ZenAdmin External Catalog Context API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ZenAdmin External API v1 for IT asset, device, order, employee, catalog and webhook management. This specification was reconstructed faithfully from the published developer documentation at https://docs.zenadmin.ai; ZenAdmin does not publish a machine-readable OpenAPI document. Authentication is via a per-key API key sent in the `x-api-key` header (or as a Bearer token).\n\nContact Support:\n Name: ZenAdmin",
+      "type": "text/plain"
+    }
+  }
+}
