@@ -43,6 +43,17 @@ tags:
 - Identity and Access Management
 - IT Procurement
 - Employee Lifecycle
+- Webhook
+tags_raw:
+- Company
+- IT Management
+- Device Management
+- Mobile Device Management
+- IT Asset Management
+- SaaS Management
+- Identity and Access Management
+- IT Procurement
+- Employee Lifecycle
 - Webhooks
 maintainers:
 - FN: Kin Lane
@@ -168,6 +179,8 @@ apis:
   humanURL: https://docs.zenadmin.ai
   baseURL: https://console.zenadmin.ai/api/external
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -196,6 +209,8 @@ apis:
   humanURL: https://docs.zenadmin.ai
   baseURL: https://console.zenadmin.ai/api/external
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
