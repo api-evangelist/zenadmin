@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: ZenAdmin External Catalog Employees API
+  title: ZenAdmin External Employees API
   version: v1
   description: ZenAdmin External API v1 for IT asset, device, order, employee, catalog and webhook management. This specification was reconstructed faithfully from the published developer documentation at https://docs.zenadmin.ai; ZenAdmin does not publish a machine-readable OpenAPI document. Authentication is via a per-key API key sent in the `x-api-key` header (or as a Bearer token).
   x-generated-by: API Evangelist enrichment pipeline
@@ -96,17 +96,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        message:
-          type: string
-      required:
-      - success
-      - message
     Employee:
       type: object
       properties:
@@ -125,7 +114,24 @@ components:
           type: integer
         items_on_page:
           type: integer
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+      required:
+      - success
+      - message
   responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Invalid or expired API key
       content:
@@ -135,12 +141,6 @@ components:
           example:
             success: false
             message: Invalid or expired API key
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyHeader:
       type: apiKey

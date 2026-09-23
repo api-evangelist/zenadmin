@@ -1,12 +1,7 @@
 {
   "provider": "zenadmin",
   "sources": [
-    "zenadmin-catalog-api-openapi.yml",
-    "zenadmin-context-api-openapi.yml",
-    "zenadmin-devices-api-openapi.yml",
-    "zenadmin-employees-api-openapi.yml",
-    "zenadmin-orders-api-openapi.yml",
-    "zenadmin-webhooks-api-openapi.yml"
+    "_original/zenadmin-external-api.yml"
   ],
   "outputs": [
     "zenadmin-catalog-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "zenadmin-external-api.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "zenadmin-catalog-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zenadmin-context-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zenadmin-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zenadmin-employees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zenadmin-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zenadmin-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

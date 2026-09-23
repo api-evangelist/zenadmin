@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: ZenAdmin External Catalog API
   version: v1
@@ -114,6 +114,22 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Country:
+      type: object
+      properties:
+        country_id:
+          type: string
+        name:
+          type: string
+    MetaData:
+      type: object
+      properties:
+        total_items:
+          type: integer
+        page_no:
+          type: integer
+        items_on_page:
+          type: integer
     Error:
       type: object
       properties:
@@ -125,28 +141,18 @@ components:
       required:
       - success
       - message
-    Country:
-      type: object
-      properties:
-        country_id:
-          type: string
-        name:
-          type: string
     CatalogDevice:
       type: object
       properties:
         product_configuration_id:
           type: string
-    MetaData:
-      type: object
-      properties:
-        total_items:
-          type: integer
-        page_no:
-          type: integer
-        items_on_page:
-          type: integer
   responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Invalid or expired API key
       content:
@@ -156,12 +162,6 @@ components:
           example:
             success: false
             message: Invalid or expired API key
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyHeader:
       type: apiKey
