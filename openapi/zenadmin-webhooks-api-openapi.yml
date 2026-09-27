@@ -167,15 +167,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    MetaData:
-      type: object
-      properties:
-        total_items:
-          type: integer
-        page_no:
-          type: integer
-        items_on_page:
-          type: integer
     Error:
       type: object
       properties:
@@ -187,6 +178,22 @@ components:
       required:
       - success
       - message
+    WebhookSubscriptionCreate:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - rfq.created
+            - order.status_changed
+      required:
+      - url
+      - events
     WebhookDelivery:
       type: object
       properties:
@@ -208,35 +215,16 @@ components:
           type: array
           items:
             type: string
-    WebhookSubscriptionCreate:
+    MetaData:
       type: object
       properties:
-        url:
-          type: string
-          format: uri
-        events:
-          type: array
-          items:
-            type: string
-            enum:
-            - rfq.created
-            - order.status_changed
-      required:
-      - url
-      - events
+        total_items:
+          type: integer
+        page_no:
+          type: integer
+        items_on_page:
+          type: integer
   responses:
-    BadRequest:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Invalid or expired API key
       content:
@@ -246,6 +234,18 @@ components:
           example:
             success: false
             message: Invalid or expired API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyHeader:
       type: apiKey

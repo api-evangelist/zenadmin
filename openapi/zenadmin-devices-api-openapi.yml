@@ -86,15 +86,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    MetaData:
-      type: object
-      properties:
-        total_items:
-          type: integer
-        page_no:
-          type: integer
-        items_on_page:
-          type: integer
     Error:
       type: object
       properties:
@@ -111,13 +102,16 @@ components:
       properties:
         id:
           type: string
+    MetaData:
+      type: object
+      properties:
+        total_items:
+          type: integer
+        page_no:
+          type: integer
+        items_on_page:
+          type: integer
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Invalid or expired API key
       content:
@@ -127,6 +121,12 @@ components:
           example:
             success: false
             message: Invalid or expired API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyHeader:
       type: apiKey
