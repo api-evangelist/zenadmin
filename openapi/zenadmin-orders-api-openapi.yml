@@ -153,18 +153,38 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            message: Invalid or expired API key
+    BadRequest:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    MetaData:
       type: object
       properties:
-        success:
-          type: boolean
-          example: false
-        message:
-          type: string
-      required:
-      - success
-      - message
+        total_items:
+          type: integer
+        page_no:
+          type: integer
+        items_on_page:
+          type: integer
     OrderCreate:
       type: object
       properties:
@@ -182,37 +202,17 @@ components:
           type: string
         external_request_id:
           type: string
-    MetaData:
+    Error:
       type: object
       properties:
-        total_items:
-          type: integer
-        page_no:
-          type: integer
-        items_on_page:
-          type: integer
-  responses:
-    Unauthorized:
-      description: Invalid or expired API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            success: false
-            message: Invalid or expired API key
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+      required:
+      - success
+      - message
   securitySchemes:
     ApiKeyHeader:
       type: apiKey

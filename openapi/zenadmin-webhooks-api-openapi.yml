@@ -166,7 +166,47 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            message: Invalid or expired API key
+    BadRequest:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    MetaData:
+      type: object
+      properties:
+        total_items:
+          type: integer
+        page_no:
+          type: integer
+        items_on_page:
+          type: integer
+    WebhookDelivery:
+      type: object
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+        status:
+          type: string
     Error:
       type: object
       properties:
@@ -178,6 +218,18 @@ components:
       required:
       - success
       - message
+    WebhookSubscription:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
     WebhookSubscriptionCreate:
       type: object
       properties:
@@ -194,58 +246,6 @@ components:
       required:
       - url
       - events
-    WebhookDelivery:
-      type: object
-      properties:
-        id:
-          type: string
-        event:
-          type: string
-        status:
-          type: string
-    WebhookSubscription:
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
-          format: uri
-        events:
-          type: array
-          items:
-            type: string
-    MetaData:
-      type: object
-      properties:
-        total_items:
-          type: integer
-        page_no:
-          type: integer
-        items_on_page:
-          type: integer
-  responses:
-    Unauthorized:
-      description: Invalid or expired API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            success: false
-            message: Invalid or expired API key
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyHeader:
       type: apiKey
