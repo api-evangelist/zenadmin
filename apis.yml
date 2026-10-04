@@ -53,7 +53,6 @@ tags:
 - Mobile Device Management
 - IT Asset Management
 - SaaS Management
-- Identity and Access Management
 - IT Procurement
 - Employee Lifecycle
 - Webhook
@@ -64,7 +63,6 @@ tags_raw:
 - Mobile Device Management
 - IT Asset Management
 - SaaS Management
-- Identity and Access Management
 - IT Procurement
 - Employee Lifecycle
 - Webhooks
@@ -281,3 +279,5 @@ x-enrichment:
   status: enriched
   artifacts_added: 20
   pass: local-v1
+x-tags-removed:
+- Identity and Access Management
