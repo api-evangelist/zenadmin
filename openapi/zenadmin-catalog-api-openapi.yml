@@ -113,29 +113,11 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or expired API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            success: false
-            message: Invalid or expired API key
   schemas:
-    Country:
+    CatalogDevice:
       type: object
       properties:
-        country_id:
-          type: string
-        name:
+        product_configuration_id:
           type: string
     MetaData:
       type: object
@@ -146,11 +128,6 @@ components:
           type: integer
         items_on_page:
           type: integer
-    CatalogDevice:
-      type: object
-      properties:
-        product_configuration_id:
-          type: string
     Error:
       type: object
       properties:
@@ -162,6 +139,29 @@ components:
       required:
       - success
       - message
+    Country:
+      type: object
+      properties:
+        country_id:
+          type: string
+        name:
+          type: string
+  responses:
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            message: Invalid or expired API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyHeader:
       type: apiKey

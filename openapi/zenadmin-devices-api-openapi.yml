@@ -85,23 +85,12 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or expired API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            success: false
-            message: Invalid or expired API key
   schemas:
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
     MetaData:
       type: object
       properties:
@@ -111,11 +100,6 @@ components:
           type: integer
         items_on_page:
           type: integer
-    Device:
-      type: object
-      properties:
-        id:
-          type: string
     Error:
       type: object
       properties:
@@ -127,6 +111,22 @@ components:
       required:
       - success
       - message
+  responses:
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            message: Invalid or expired API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyHeader:
       type: apiKey

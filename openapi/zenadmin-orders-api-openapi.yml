@@ -154,8 +154,8 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Validation error
       content:
         application/json:
           schema:
@@ -169,8 +169,8 @@ components:
           example:
             success: false
             message: Invalid or expired API key
-    BadRequest:
-      description: Validation error
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -193,15 +193,6 @@ components:
           description: Idempotency key. Reusing a value returns the original order.
       required:
       - external_request_id
-    Order:
-      type: object
-      properties:
-        rfq_id:
-          type: string
-        status:
-          type: string
-        external_request_id:
-          type: string
     Error:
       type: object
       properties:
@@ -213,6 +204,15 @@ components:
       required:
       - success
       - message
+    Order:
+      type: object
+      properties:
+        rfq_id:
+          type: string
+        status:
+          type: string
+        external_request_id:
+          type: string
   securitySchemes:
     ApiKeyHeader:
       type: apiKey
