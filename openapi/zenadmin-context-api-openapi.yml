@@ -50,6 +50,16 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Invalid or expired API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            success: false
+            message: Invalid or expired API key
   schemas:
     Error:
       type: object
@@ -62,16 +72,6 @@ components:
       required:
       - success
       - message
-  responses:
-    Unauthorized:
-      description: Invalid or expired API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            success: false
-            message: Invalid or expired API key
   securitySchemes:
     ApiKeyHeader:
       type: apiKey
