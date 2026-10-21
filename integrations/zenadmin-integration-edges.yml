@@ -35,6 +35,60 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
+- partner_name: 500 Global
+  partner: 500-global
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://500.co/companies
+  category: accelerator portfolio participation
+  contract_reference:
+    register: 500 Global portfolio (500.co/companies; the page's own JSON 500.co/api/startups)
+    standard: null
+    spec_file: null
+    role: accelerator-portfolio-company
+    registered_name: ZenAdmin
+    register_id: https://500.co/companies
+    register_country: Singapore
+    register_website: www.zenadmin.ai
+    matched_domain: zenadmin.ai
+    matched_by: domain
+    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-accelerator-portfolios.py
+    detected: '2026-10-21'
+    year: '2025'
+  detected_by: sweep-accelerator-portfolios.py
+  first_seen: '2026-10-21'
+- partner_name: Antler
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.antler.co/portfolio?0b933bfd_page=21
+  category: accelerator portfolio participation
+  contract_reference:
+    register: Antler portfolio (antler.co/portfolio)
+    standard: null
+    spec_file: null
+    role: accelerator-portfolio-company
+    registered_name: ZenAdmin.ai (formerly Hybr1d)
+    register_id: https://www.antler.co/portfolio?0b933bfd_page=21
+    register_country: B2B Software
+    register_website: https://www.zenadmin.ai/
+    matched_domain: zenadmin.ai
+    matched_by: domain
+    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-accelerator-portfolios.py
+    detected: '2026-10-21'
+    sector: '2023'
+  detected_by: sweep-accelerator-portfolios.py
+  first_seen: '2026-10-21'
 generated: '2026-10-18'
 method: searched
 source:
@@ -43,3 +97,8 @@ source:
 checked:
 - microsoft-teams/integrations/microsoft-teams-integration-edges.yml
 - zoom/integrations/zoom-integration-edges.yml
+- https://500.co/api/startups
+- https://500.co/companies
+- https://www.antler.co/portfolio
+- https://www.techstars.com/portfolio
+- https://www.ycombinator.com/companies
