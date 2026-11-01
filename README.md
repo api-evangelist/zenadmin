@@ -64,6 +64,125 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ZenAdmin is a company surfaced as a portfolio company of 500-global and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+ZenAdmin is an all-in-one IT management platform for global teams, covering the full device and employee lifecycle: IT procurement, device lifecycle management, asset and inventory tracking, mobile device management (MDM), identity and access management, SaaS/app management, IT helpdesk, and 24/7 IT support across 150+ countries. ZenAdmin publishes an External API v1 (documented at docs.zenadmin.ai) for programmatic access to devices, hardware orders, a hardware catalog, employees, and outbound webhooks. Authentication is a per-key API key sent via the x-api-key header. This profile was originally surfaced as a 500 Global portfolio company and has been enriched from the live developer documentation.
 
-Backed by: 500-global — https://zenadmin.ai
+**Areas:** Company · IT Management · Device Management · Mobile Device Management · IT Asset Management · SaaS Management · IT Procurement · Employee Lifecycle · Webhook
+
+## ZenAdmin on APIs.io
+
+Everything profiled for ZenAdmin is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/zenadmin/](https://apis.io/providers/zenadmin/)** — or go straight to one of the APIs or properties below.
+
+### APIs (6)
+
+- [ZenAdmin Catalog API](https://apis.io/apis/zenadmin/zenadmin-catalog-api/) — The Catalog API from ZenAdmin — 3 operation(s) for catalog.
+- [ZenAdmin Context API](https://apis.io/apis/zenadmin/zenadmin-context-api/) — The Context API from ZenAdmin — 1 operation(s) for context.
+- [ZenAdmin Devices API](https://apis.io/apis/zenadmin/zenadmin-devices-api/) — The Devices API from ZenAdmin — 2 operation(s) for devices.
+- [ZenAdmin Employees API](https://apis.io/apis/zenadmin/zenadmin-employees-api/) — The Employees API from ZenAdmin — 2 operation(s) for employees.
+- [ZenAdmin Orders API](https://apis.io/apis/zenadmin/zenadmin-orders-api/) — The Orders API from ZenAdmin — 3 operation(s) for orders.
+- [ZenAdmin Webhooks API](https://apis.io/apis/zenadmin/zenadmin-webhooks-api/) — The Webhooks API from ZenAdmin — 4 operation(s) for webhooks.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Zenadmin Webhooks](https://apis.io/asyncapis/zenadmin/zenadmin-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [zenadmin-mcp.yml](https://apis.io/servers/zenadmin/zenadmin-mcp-yml/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [ZenAdmin External Catalog API](https://apis.io/collections/zenadmin/open-zenadmin-catalog-api/)
+- [ZenAdmin External Catalog Context API](https://apis.io/collections/zenadmin/open-zenadmin-context-api/)
+- [ZenAdmin External Catalog Devices API](https://apis.io/collections/zenadmin/open-zenadmin-devices-api/)
+- [ZenAdmin External Catalog Employees API](https://apis.io/collections/zenadmin/open-zenadmin-employees-api/)
+- [ZenAdmin External Catalog Orders API](https://apis.io/collections/zenadmin/open-zenadmin-orders-api/)
+- [ZenAdmin External Catalog Webhooks API](https://apis.io/collections/zenadmin/open-zenadmin-webhooks-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Zenadmin External Api Overlay](https://apis.io/overlays/zenadmin/zenadmin-external-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Zenadmin Authentication](https://apis.io/security/zenadmin/zenadmin-authentication/)
+- [Zenadmin Domain Security](https://apis.io/security/zenadmin/zenadmin-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://zenadmin.ai)
+- [Documentation](https://docs.zenadmin.ai)
+- [API reference](https://docs.zenadmin.ai)
+- [Blog](https://www.zenadmin.ai/blogs)
+- [Terms of service](https://www.zenadmin.ai/terms-of-service)
+- [Privacy policy](https://www.zenadmin.ai/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 29.8** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 24.9 |
+| Contract governance | 4.5 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 42.3 |
+| Access clarity | 27.6 |
+
+**Agent readiness 33.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/zenadmin/](https://apis.io/providers/zenadmin/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ZenAdmin: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/zenadmin/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
